@@ -4,5 +4,32 @@ services:
 #  user: "${UID}:${GID}"
   volumes: 
    - /perm_storage/home/gdal/Git/vapour:/vapour
-  ports: 
+  ports:
    - 8787:8787
+  environment:
+   - PASSWORD=pass
+  labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mikemachine.rule=Host(`gdalbuild.ace-eco-stats.cloud.edu.au`)"
+      - "traefik.http.routers.mikemachine.entrypoints=websecure"
+      - "traefik.http.routers.mikemachine.tls.certresolver=myresolver"
+
+ traefik:
+  image: "traefik:v2.10"
+  container_name: "traefik"
+  command:
+#      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+     # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=mdsumner@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+  ports:
+      - "443:443"
+      - "8080:8080"
+  volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
