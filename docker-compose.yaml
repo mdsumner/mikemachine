@@ -10,7 +10,7 @@ services:
    - PASSWORD="${MIKEMACHINEPASSWORD}
   labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mikemachine.rule=Host(`gdalbuild.ace-eco-stats.cloud.edu.au`)"
+      - "traefik.http.routers.mikemachine.rule=Host(`mikemachine.ace-eco-stats.cloud.edu.au`)"
       - "traefik.http.routers.mikemachine.entrypoints=websecure"
       - "traefik.http.routers.mikemachine.tls.certresolver=myresolver"
 
