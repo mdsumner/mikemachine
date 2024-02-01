@@ -1,0 +1,8 @@
+services:
+ mikemachine:
+  image:  ghcr.io/mdsumner/gdal-builds:rocker-gdal-dev-python
+#  user: "${UID}:${GID}"
+  volumes: 
+   - /perm_storage/home/gdal/Git/vapour:/vapour
+  ports: 
+   - 8787:8787
