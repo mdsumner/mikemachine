@@ -7,7 +7,7 @@ services:
   ports:
    - 8787:8787
   environment:
-   - PASSWORD=pass
+   - PASSWORD="${MIKEMACHINEPASSWORD}
   labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mikemachine.rule=Host(`gdalbuild.ace-eco-stats.cloud.edu.au`)"
